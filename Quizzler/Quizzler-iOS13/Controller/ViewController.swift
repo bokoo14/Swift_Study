@@ -9,6 +9,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    // view the total user's score
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     // connect the view controller components
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
@@ -47,6 +50,8 @@ class ViewController: UIViewController {
     
     // update the questionLabel
     @objc func updateUI(){
+        // set the score label
+        scoreLabel.text = "Score: \(quizBrain.getScore())"
         // change the quiz text
         questionLabel.text = quizBrain.getQuestionText()
         
