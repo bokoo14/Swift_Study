@@ -10,7 +10,7 @@ import UIKit
 
 class CalculatorViewController: UIViewController {
     
-    var tip = 0.10
+    var tip = 0.00
     var numberOfPeople = 2
     var billTotal = 0.0
     var finalResult = "0.0"

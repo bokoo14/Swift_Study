@@ -11,7 +11,7 @@ import UIKit
 class ResultsViewController: UIViewController {
     
     var result = "0.0"
-    var tip = 10
+    var tip = 0
     var split = 2
     
     @IBOutlet weak var totalLabel: UILabel!
