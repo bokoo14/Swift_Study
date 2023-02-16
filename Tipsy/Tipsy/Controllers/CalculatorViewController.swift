@@ -9,6 +9,11 @@
 import UIKit
 
 class CalculatorViewController: UIViewController {
+    
+    var tip = 0.10
+    var numberOfPeople = 2
+    var billTotal = 0.0
+    var finalResult = "0.0"
 
     @IBOutlet weak var billTextField: UITextField!
     @IBOutlet weak var zeroPctButton: UIButton!
@@ -16,10 +21,6 @@ class CalculatorViewController: UIViewController {
     @IBOutlet weak var twentyPctButton: UIButton!
     @IBOutlet weak var splitNumberLabel: UILabel!
     
-    var tip = 0.10
-    var numberOfPeople = 2
-    var billTotal = 0.0
-    var finalResult = "0.0"
     
     @IBAction func tipChanged(_ sender: UIButton) {
         
