@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CoinManagerDelegate {
     
     @IBOutlet weak var bitcoinLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
@@ -23,6 +23,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         currencyPicker.dataSource = self
         // to update the PickerView with some titles and detect when it is interacted with
         currencyPicker.delegate = self
+
+        
+        // easily missed: must set the coinManager's delegate as this current class so that we can receive the notification when the delegate methods are called
+        coinManager.delegate = self
     }
     
     
