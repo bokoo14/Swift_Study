@@ -14,8 +14,10 @@ protocol WeatherManagerDelegate {
     func didFailWithError(error: Error)
 }
 
+let myAPI = "" // add my API address!
 struct WeatherManager {
-    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=d5e4a2f4a0ac03a3f4db61c7788af767&units=metric"
+    
+    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=\(myAPI)&units=metric"
     
     var delegate: WeatherManagerDelegate?
     
