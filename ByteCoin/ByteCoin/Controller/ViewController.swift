@@ -8,9 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, CoinManagerDelegate {
-   
-    
+class ViewController: UIViewController {
     
     @IBOutlet weak var bitcoinLabel: UILabel!
     @IBOutlet weak var currencyLabel: UILabel!
@@ -30,8 +28,27 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         // to update the PickerView with some titles and detect when it is interacted with
         currencyPicker.delegate = self
     }
+}
+
+//MARK: - CoinManagerDelegate
+// provide the implement for the delegate methods
+// when the coinManager gets the price it will call this method and pass over the price and currency
+extension  ViewController: CoinManagerDelegate {
+    func didUpdatePrice(price: String, currency: String) {
+        // Rememeder that we need to get hold of the main thread to update the UI, otherwise our app will crash if we try to do this from a background thread (URLSession works in the background)
+        DispatchQueue.main.async {
+            self.bitcoinLabel.text = price
+            self.currencyLabel.text = currency
+        }
+    }
     
-    
+    func didFailWithError(error: Error) {
+        print(error)
+    }
+}
+
+
+extension ViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     //MARK: - UIPickerViewDataSource
     // provide the data and add the implementation for the first method to determine how many colums we want in our picker
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -56,22 +73,4 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         let selectedCurrency = coinManager.currencyArray[row]
         coinManager.getCoinPrice(for: selectedCurrency)
     }
-    
-    
-    //MARK: - CoinManagerDelegate
-    // provide the implement for the delegate methods
-    // when the coinManager gets the price it will call this method and pass over the price and currency
-    func didUpdatePrice(price: String, currency: String) {
-        // Rememeder that we need to get hold of the main thread to update the UI, otherwise our app will crash if we try to do this from a background thread (URLSession works in the background)
-        DispatchQueue.main.async {
-            self.bitcoinLabel.text = price
-            self.currencyLabel.text = currency
-        }
-    }
-    
-    func didFailWithError(error: Error) {
-        print(error)
-    }
-    
 }
-
