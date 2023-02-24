@@ -34,7 +34,6 @@ struct CoinManager {
     // for: external name, currency: internal name
     // pass the selected currency to the CoinManager
     func getCoinPrice(for currency: String){
-        
         // Use String concatenation to add the selected currency at the end of the baseURL along with the API key
         let urlString = "\(baseURL)/\(currency)?apikey=\(apiKey)"
         
