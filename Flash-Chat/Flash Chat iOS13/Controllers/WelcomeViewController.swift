@@ -17,13 +17,16 @@ class WelcomeViewController: UIViewController {
         
         titleLabel.text = ""
         let titleText = "⚡️FlashChat"
-        for title in titleText {
+        var charIndex = 0.0
+        for letter in titleText {
+            print("-")
+            print(0.1*charIndex)
+            print(letter)
             Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
-                self.titleLabel.text?.append(title)
+                self.titleLabel.text?.append(letter)
             }
-            
+            charIndex+=1
         }
     }
     
-
 }
