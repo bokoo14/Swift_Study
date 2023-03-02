@@ -59,6 +59,6 @@ extension ChatViewController: UITableViewDataSource {
         cell.textLabel?.text = messages[indexPath.row].body
         return cell
     }
-    //1212
+        
     
 }
