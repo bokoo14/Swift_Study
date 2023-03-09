@@ -25,6 +25,7 @@ class ChatViewController: UIViewController {
         Message(sender: "1@2.com", body: "What's up!")
     ]
     
+    // when user login, load a ChatViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +37,7 @@ class ChatViewController: UIViewController {
         
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
         
+        // load a saved message in firebase
         loadMessages()
     }
     
@@ -45,11 +47,21 @@ class ChatViewController: UIViewController {
         
         // read data
         db.collection(K.FStore.collectionName).getDocuments{ (querySnapshot, error) in
-            if let e = error { //optional error
+            if let e = error { //optional error: if the error is exists
                 print("There was an issue retrieving data from Firestore. \(e)")
             }
             else{ // when error is not exists
-                querySnapshot?.documents[0]
+                // load a data from a firebase and print: e.g. ["body": hello, "sender": 1@2.com]
+                if let snapshotDocuments = querySnapshot?.documents {
+                    for doc in snapshotDocuments {
+                        let data = doc.data() // get the saved date from firebase
+                        if let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String {
+                            let newMessage = Message(sender: messageSender, body: messageBody)
+                            
+                            messages.append(newMessage)
+                        }
+                    }
+                }
             }
         }
     }
