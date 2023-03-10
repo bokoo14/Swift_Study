@@ -58,7 +58,7 @@ class ChatViewController: UIViewController {
                         if let messageSender = data[K.FStore.senderField] as? String, let messageBody = data[K.FStore.bodyField] as? String {
                             let newMessage = Message(sender: messageSender, body: messageBody)
                             
-                            messages.append(newMessage)
+                            self.messages.append(newMessage)
                         }
                     }
                 }
