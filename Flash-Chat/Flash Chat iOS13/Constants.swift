@@ -6,6 +6,7 @@
 //  Copyright © 2023 Angela Yu. All rights reserved.
 //
 
+// to prevent the typo when using the unique name
 struct K {
     static let appName = "⚡️FlashChat"
     static let cellIdentifier = "ReusableCell"

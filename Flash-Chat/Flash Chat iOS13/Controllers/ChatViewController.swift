@@ -41,16 +41,20 @@ class ChatViewController: UIViewController {
         loadMessages()
     }
     
+    // clear the dummy messages and reload messages from firebase
     func loadMessages() {
-        // clear the dummy messages
-        messages = []
-        
-        // read data
-        db.collection(K.FStore.collectionName).getDocuments{ (querySnapshot, error) in
+        // read data realtime and order by "date"
+        db.collection(K.FStore.collectionName)
+            .order(by: K.FStore.dateField)
+            .addSnapshotListener{ (querySnapshot, error) in
+                
+            // clear the dummy messages
+            self.messages = []
+            
             if let e = error { //optional error: if the error is exists
                 print("There was an issue retrieving data from Firestore. \(e)")
             }
-            else{ // when error is not exists
+            else{ // when error not exists
                 // load a data from a firebase and print: e.g. ["body": hello, "sender": 1@2.com]
                 if let snapshotDocuments = querySnapshot?.documents {
                     for doc in snapshotDocuments {
@@ -59,6 +63,12 @@ class ChatViewController: UIViewController {
                             let newMessage = Message(sender: messageSender, body: messageBody)
                             
                             self.messages.append(newMessage)
+                            
+                            
+                            // dispatch in main queue
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
                         }
                     }
                 }
@@ -68,7 +78,11 @@ class ChatViewController: UIViewController {
     
     @IBAction func sendPressed(_ sender: UIButton) {
         if let messageBody = messageTextfield.text, let messageSender = Auth.auth().currentUser?.email{
-            db.collection(K.FStore.collectionName).addDocument(data: [K.FStore.senderField: messageSender, K.FStore.bodyField: messageBody]) { (error) in
+            // when press send button, send the current document to the firebase
+            db.collection(K.FStore.collectionName).addDocument(data: [K.FStore.senderField: messageSender,
+                                                                      K.FStore.bodyField: messageBody,
+                                                                      K.FStore.dateField: Date().timeIntervalSince1970
+                                                                     ]) { (error) in
                 if let e = error {
                     print("There was an issue saving data to firestore, \(e)")
                 }
