@@ -68,6 +68,8 @@ class ChatViewController: UIViewController {
                             // dispatch in main queue
                             DispatchQueue.main.async {
                                 self.tableView.reloadData()
+                                let indexPath = IndexPath(row: self.messages.count-1, section: 0)
+                                self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
                             }
                         }
                     }
@@ -86,8 +88,9 @@ class ChatViewController: UIViewController {
                 if let e = error {
                     print("There was an issue saving data to firestore, \(e)")
                 }
-                else{
+                else{ //if user complete saving date
                     print("Successfully saved data")
+                    self.messageTextfield.text = ""
                 }
             }
         }
@@ -114,8 +117,28 @@ extension ChatViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let message = messages[indexPath.row]
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: K.cellIdentifier, for: indexPath) as! MessageCell
         cell.label.text = messages[indexPath.row].body
+        
+        // identify the two user -> ImageView and textColor
+        // this is a message from the current user
+        // user1: 1@2.com 123456 user2: a@b.com 123456
+        if message.sender == Auth.auth().currentUser?.email {
+            cell.leftImageView.isHidden = true // disable view leftImageView
+            cell.rightImageView.isHidden = false // able view righrImageView
+            cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.lightPurple) // change the messageBubble
+            cell.label.textColor = UIColor(named: K.BrandColors.purple) // change the label textColor
+        }
+        // this is a message from the another sender
+        else {
+            cell.leftImageView.isHidden = false
+            cell.rightImageView.isHidden = true
+            cell.messageBubble.backgroundColor = UIColor(named: K.BrandColors.purple)
+            cell.label.textColor = UIColor(named: K.BrandColors.lightPurple)
+        }
+    
         return cell
     }
 }
