@@ -1,10 +1,13 @@
 # Swift_Projects
-iOS apps for study
+iOS apps for study using Xcode 14.2   
+clone coding
 
-2023.02.03-2023.03.05
-
-using Xcode
+2023.02.03 ~ 
 
 preparing for iOS developer
 
-goal: learn at least 1 section everyday until March 2023 
+goal: learn UIKit and SwiftUI + github
+
+
+  
+[ref] Udemy - iOS & Swift - The Complete iOS App Development Bootcamp
