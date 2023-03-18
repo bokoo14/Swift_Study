@@ -35,7 +35,7 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .padding(.horizontal)
                     .background(.red)
-                    .frame(height: /*@START_MENU_TOKEN@*/100.0/*@END_MENU_TOKEN@*/)
+                    .frame(height: 100.0)
             }
         }
     }
