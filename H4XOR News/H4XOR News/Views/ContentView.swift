@@ -14,7 +14,13 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List (networkManager.posts){ post in
-                Text(post.title)
+                // link to DetailView
+                NavigationLink(destination: DetailView(url: post.url)) {
+                    HStack {
+                        Text(String(post.id))
+                        Text(post.title)
+                    }
+                }
             } .navigationTitle("H4XOR NEWS")
         }
         .onAppear { // when view appear
