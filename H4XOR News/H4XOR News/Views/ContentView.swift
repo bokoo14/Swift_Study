@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    //@ObservedObject: A property wrapper type that subscribes to an observable object and invalidates a view whenever the observable object changes.
     @ObservedObject var networkManager = NeworkManager()
     
     var body: some View {
