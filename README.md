@@ -1,12 +1,8 @@
-# Swift_Projects
+# UIKit_Study
 iOS apps for study using Xcode 14.2   
-clone coding
 
-2023.02.03 ~ 
-
-preparing for iOS developer
-
-goal: learn UIKit and SwiftUI + github
+기간: 2023.02.03 ~ 
+UIKit을 공부합니다.
 
 
   
