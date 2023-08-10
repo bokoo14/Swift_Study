@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CLTypingLabel
+//import CLTypingLabel
 
 class WelcomeViewController: UIViewController {
 
